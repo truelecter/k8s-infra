@@ -16,8 +16,6 @@ spec:
     helm:
       values: |
         server:
-          service:
-            type: LoadBalancer
           ingress:
             enabled: true
             ingressClassName: nginx
