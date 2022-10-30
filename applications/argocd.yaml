@@ -14,7 +14,6 @@ spec:
     targetRevision: 5.8.7
 
     helm:
-      passCredentials: false
       values: |
         server:
           service:
@@ -30,7 +29,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
-      allowEmpty: false
     syncOptions:
     - Validate=false
     - CreateNamespace=true
