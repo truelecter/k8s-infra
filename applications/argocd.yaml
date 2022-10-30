@@ -20,6 +20,7 @@ spec:
             type: LoadBalancer
           ingress:
             enabled: true
+            ingressClassName: nginx
 
   destination:
     server: https://kubernetes.default.svc
