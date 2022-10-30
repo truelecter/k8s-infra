@@ -22,8 +22,6 @@ spec:
             type: LoadBalancer
           ingress:
             enabled: true
-          extraArgs:
-          - --insecure
 
   destination:
     server: https://kubernetes.default.svc
