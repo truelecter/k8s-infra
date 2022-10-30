@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: cluster-addons
+  name: infra
   namespace: argocd
 spec:
   description: Cluster wide addons
