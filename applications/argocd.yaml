@@ -19,6 +19,9 @@ spec:
           ingress:
             enabled: true
             ingressClassName: nginx
+            hosts:
+            - argocd.tenma.moe
+            - argocd.fenrir.moe
 
   destination:
     server: https://kubernetes.default.svc
