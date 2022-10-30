@@ -1,27 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: argocd
   namespace: argocd
   labels:
-    name: cert-manager
+    name: argocd
 spec:
   project: cluster-addons
 
   source:
-    repoURL: https://charts.jetstack.io
-    targetRevision: 1.9.1
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 5.8.7
 
-    chart: cert-manager
     helm:
       passCredentials: false
-
       values: |
-        installCRDs: true
+        server:
+          service:
+            type: LoadBalancer
+          ingress:
+            enabled: true
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: cert-manager
+    namespace: argocd
 
   syncPolicy:
     automated:
