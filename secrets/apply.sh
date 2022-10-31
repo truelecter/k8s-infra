@@ -10,8 +10,12 @@ if ! kubectl --context $SECRETS_CONTEXT get pods -A > /dev/null 2>&1; then
   exit 1
 fi
 
-SECRETS_DIR="$( dirname -- $(realpath $BASH_SOURCE) )/manifests"
+SECRETS_BASE_DIR="$PRJ_ROOT/secrets"
 
-for filename in $SECRETS_DIR/*; do
+for filename in $SECRETS_BASE_DIR/manifests/*; do
   sops -d $filename | kubectl --context $SECRETS_CONTEXT apply -f -
+done
+
+for filename in $SECRETS_BASE_DIR/sops-operator/*; do
+  kubectl --context $SECRETS_CONTEXT apply -f $filename
 done
