@@ -5,7 +5,7 @@ image:
   pullPolicy: Always
   tag: bot
 
-web-image:
+webimage:
   repository: ghcr.io/cq-pandora/assets
   pullPolicy: Always
   tag: web
