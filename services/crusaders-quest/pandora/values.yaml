@@ -10,6 +10,10 @@ webimage:
   pullPolicy: Always
   tag: web
 
+config:
+  secrets: []
+  configmaps: []
+
 pandoraConfigs:
   custom_translation_indices.json: {}
   emojis.json: {

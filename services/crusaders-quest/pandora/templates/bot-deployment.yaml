@@ -51,6 +51,8 @@ spec:
       - name: config-overrides
         projected:
           sources:
+          - configMap:
+              name: pandora-configs
           {{- range .Values.config.secrets }}
           - secret:
               name: {{ . }}
