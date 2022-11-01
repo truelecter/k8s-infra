@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pandora-configs
+data:
+  {{- range $key, $val := .Values.pandora-configs }}
+  {{ $key }}: |
+    {{ toPrettyJson $val }}
+  {{- end }}
