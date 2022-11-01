@@ -10,7 +10,7 @@ webimage:
   pullPolicy: Always
   tag: web
 
-pandora-configs:
+pandoraConfigs:
   custom_translation_indices.json: {}
   emojis.json: {
     "weapon_ticket": "<:weapon_ticket:490997284847353856>",
