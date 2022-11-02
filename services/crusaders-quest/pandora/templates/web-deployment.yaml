@@ -15,6 +15,7 @@ spec:
   selector:
     matchLabels:
       {{- include "pandora.selectorLabels" . | nindent 6 }}
+      role: web-assets
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -23,6 +24,7 @@ spec:
       {{- end }}
       labels:
         {{- include "pandora.selectorLabels" . | nindent 8 }}
+        role: web-assets
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
