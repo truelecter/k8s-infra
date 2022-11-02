@@ -7,7 +7,8 @@ spec:
   node: depsos
   expectedIPs:
   - 192.168.20.37
-  profiles: []
+  profiles:
+  - projectcalico-default-allow
   ports:
   - name: postgres
     port: 5432
