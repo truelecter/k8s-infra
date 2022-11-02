@@ -5,8 +5,8 @@ metadata:
 spec:
   interfaceName: eth0
   node: depsos
-  expectedIPs: []
-  # - 192.168.20.37
+  expectedIPs:
+  - 192.168.20.37
   profiles: []
   ports:
   - name: postgres
