@@ -2,14 +2,14 @@ keys:
   - &truelecter A35AABA719FAC1A001E375F8EEF7F5B1C5AB1F74
   - &soperator  F86963BF3C1BEF73A3EF3FA75FD8BC12CD3EAD85
 creation_rules:
-  - path_regex: secrets/manifests/.+.yaml
-    encrypted_regex: ^(data|stringData|addresses)$
-    key_groups:
-    - pgp:
-      - *truelecter
-  - path_regex: secrets/sops-operator/.+.yaml
-    encrypted_suffix: Templates
-    key_groups:
-    - pgp:
-      - *truelecter
-      - *soperator
+- path_regex: secrets/manifests/.+.yaml
+  encrypted_regex: ^(data|stringData|addresses)$
+  key_groups:
+  - pgp:
+    - *truelecter
+- path_regex: secrets/sops-operator/.+.yaml
+  encrypted_suffix: Templates
+  key_groups:
+  - pgp:
+    - *truelecter
+    - *soperator

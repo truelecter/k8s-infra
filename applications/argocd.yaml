@@ -15,6 +15,9 @@ spec:
 
     helm:
       values: |
+        global:
+          secret:
+            createSecret: false
         server:
           ingress:
             enabled: true
