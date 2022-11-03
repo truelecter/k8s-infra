@@ -19,18 +19,18 @@ spec:
           secret:
             createSecret: false
           cm:
-            dex\.config: |
+            dex.config: |
               connectors:
               - config:
-                  issuer: http://auth.tenma.moe/application/o/argocd/
+                  issuer: https://auth.tenma.moe/application/o/argocd/
                   clientID: 891ea8b5bc1e6f22829db5b9f2bf73f8423e3526
                   clientSecret: $dex.authentik.clientSecret
                   insecureEnableGroups: true
                   scopes:
-                    - openid
-                    - profile
-                    - email
-                    - groups
+                  - openid
+                  - profile
+                  - email
+                  - groups
                 name: authentik
                 type: oidc
                 id: authentik
