@@ -16,8 +16,6 @@ spec:
     helm:
       values: |
         configs:
-          params:
-            server.insecure: true
           secret:
             createSecret: false
           cm:
