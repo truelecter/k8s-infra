@@ -25,6 +25,7 @@ spec:
 
         ingress:
           enabled: true
+          ingressClassName: nginx
           hosts:
           - host: auth.tenma.moe
             paths:
