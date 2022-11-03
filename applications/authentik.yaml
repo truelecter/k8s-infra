@@ -16,6 +16,10 @@ spec:
     helm:
       values: |
         authentik:
+          postgresql:
+            name: ~
+            password: ~
+            host: ~
           error_reporting:
             enabled: true
 
