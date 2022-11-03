@@ -19,9 +19,13 @@ spec:
           secret:
             createSecret: false
           cm:
+            url: "https://argocd.tenma.moe"
             dex.config: |
               connectors:
-              - config:
+              - name: authentik
+                type: oidc
+                id: authentik
+                config:
                   issuer: https://auth.tenma.moe/application/o/argocd/
                   clientID: 891ea8b5bc1e6f22829db5b9f2bf73f8423e3526
                   clientSecret: $dex.authentik.clientSecret
@@ -31,9 +35,6 @@ spec:
                   - profile
                   - email
                   - groups
-                name: authentik
-                type: oidc
-                id: authentik
           rbac:
             policy.csv: |
               g, ArgoCD Admins, role:admin
