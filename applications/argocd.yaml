@@ -19,7 +19,7 @@ spec:
           secret:
             createSecret: false
           cm:
-            dex.config: |
+            dex\.config: |
               connectors:
               - config:
                   issuer: http://auth.tenma.moe/application/o/argocd/
