@@ -16,6 +16,8 @@ spec:
     helm:
       values: |
         configs:
+          params:
+            server.insecure: true
           secret:
             createSecret: false
           cm:
@@ -26,7 +28,7 @@ spec:
                 type: oidc
                 id: authentik
                 config:
-                  issuer: https://auth.tenma.moe/application/o/argocd/
+                  issuer: http://auth.tenma.moe/application/o/argocd/
                   clientID: 891ea8b5bc1e6f22829db5b9f2bf73f8423e3526
                   clientSecret: $dex.authentik.clientSecret
                   insecureEnableGroups: true
