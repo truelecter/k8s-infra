@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: authentik
+  namespace: argocd
+  labels:
+    name: authentik
+spec:
+  project: infra
+
+  source:
+    repoURL: https://charts.goauthentik.io
+    chart: authentik
+    targetRevision: 2022.10.0
+
+    helm:
+      values: |
+        authentik:
+          error_reporting:
+            enabled: true
+
+        ingress:
+          enabled: true
+          hosts:
+          - host: auth.tenma.moe
+            paths:
+            - path: "/"
+              pathType: Prefix
+        
+        envFrom:
+        - secretRef:
+            name: authentik
+
+        postgresql:
+          enabled: false
+        redis:
+          enabled: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: authentik
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - Validate=false
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  revisionHistoryLimit: 5
