@@ -15,7 +15,7 @@ spec:
 
     helm:
       values: |
-        global:
+        configs:
           secret:
             createSecret: false
         server:
