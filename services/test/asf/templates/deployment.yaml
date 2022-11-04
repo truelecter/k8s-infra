@@ -111,7 +111,6 @@ spec:
           - configMap:
               name: {{ . }}
           {{- end }}
-      {{- else }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
