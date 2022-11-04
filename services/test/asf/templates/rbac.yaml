@@ -1,0 +1,30 @@
+{{- if or .Values.serviceAccount.rbac .Values.sidecars.configAutoReload.enabled }}
+# This is needed if you want to use https://jenkinsci.github.io/kubernetes-credentials-provider-plugin/
+# as it needs permissions to get/watch/list Secrets
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "archi-steam-farm.fullname" . }}
+  labels:
+    {{- include "archi-steam-farm.labels" . | nindent 4 }}
+rules:
+- apiGroups: [""]
+  resources: ["secrets", "configmaps"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "archi-steam-farm.fullname" . }}
+  labels:
+    {{- include "archi-steam-farm.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "archi-steam-farm.fullname" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "archi-steam-farm.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+---
+{{- end }}

@@ -47,6 +47,8 @@ spec:
           value: "{{ include "archi-steam-farm.fullname" . }}"
         - name: FOLDER
           value: "/etc/asf"
+        - name: RESOURCE
+          value: both
         - name: NAMESPACE
           value: '{{ .Values.sidecars.configAutoReload.searchNamespace | default .Release.Namespace }}'
         {{- if .Values.sidecars.configAutoReload.env }}

@@ -27,7 +27,6 @@ config:
   secrets:
   - asf
 
-
 sidecars:
   configAutoReload:
     # If enabled: true, will utilize ASF Auto-Reload feature by updating configs directory with watched scripts
@@ -42,9 +41,9 @@ sidecars:
       #   requests:
       #     cpu: 50m
       #     memory: 50Mi
-    # env:
-    #   - name: REQ_TIMEOUT
-    #     value: "30"
+    env: []
+    # - name: REQ_TIMEOUT
+    #   value: "30"
     # If specified, the sidecar will search for config-maps and secrets inside this namespace.
     # Otherwise the namespace in which the sidecar is running will be used.
     # It's also possible to specify ALL to search in all namespaces:
@@ -53,7 +52,6 @@ sidecars:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false
     envFrom: []
-    env: []
 
   # Allows you to inject additional/other sidecars
   other: []
@@ -61,6 +59,9 @@ sidecars:
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
+  # Needed to watch secrets and configmaps from configAutoReload sidecar
+  # RBAC will be used regardless of this setting, if configAutoReload.enabled is true
+  rbac: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
