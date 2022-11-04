@@ -25,6 +25,22 @@ spec:
       serviceAccountName: {{ include "archi-steam-farm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+      {{- if .Values.sidecars.configAutoReload.ASFJsonSecretRef }}
+      - name: init-asf-json
+        image: "{{ .Values.sidecars.configAutoReload.image }}"
+        imagePullPolicy: {{ .Values.sidecars.configAutoReload.imagePullPolicy }}
+        {{- if .Values.sidecars.configAutoReload.containerSecurityContext }}
+        securityContext: 
+          {{- toYaml .Values.sidecars.configAutoReload.containerSecurityContext | nindent 10 }}
+        {{- end }}
+        volumeMounts:
+        - name: config-volume
+          mountPath: "/etc/asf"
+        - name: asf-json
+          mountPath: "/opt/secret"
+        command: ['sh', '-c', 'cp /opt/secret/* /etc/asf/ASF.json']
+      {{- end }}
       containers:
       {{- if .Values.sidecars.configAutoReload.enabled }}
       - name: config-reload
@@ -98,10 +114,17 @@ spec:
       - name: config-volume
         emptyDir: {}
       {{- else }}
+      {{- if .Values.sidecars.configAutoReload.ASFJsonSecretRef }}
+      - name: asf-json
+        projected:
+          sources:
+          - secret:
+              name: {{ .Values.sidecars.configAutoReload.ASFJsonSecretRef | quote }}
+      {{- end }}
       - name: config-volume
         projected:
           sources:
-          {{- if .Values.asfConfigs }}
+          {{- if .Values.config.asfConfigs }}
           - secret:
               name: {{ include "archi-steam-farm.fullname" . }}
           {{- end }}

@@ -13,35 +13,32 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# Inline configuration for ASF.
-# If sidecars.configAutoReload is not enabled, will be mounted as read-only secret directly inside ASF container.
-# Otherwise, will be captured by configAutoReload sidecar and used to trigger ASF Auto-Reload feature
-# YAML here, will be converted to JSON automatically
-asfConfigs:
-  # IPC.config: |
-  #   {
-  #     "Kestrel": {
-  #       "Endpoints": {
-  #         "HTTP": {
-  #           "Url": "http://*:1242"
-  #         }
-  #       },
-  #       "KnownNetworks": [
-  #         "10.0.0.0/8",
-  #         "172.16.0.0/12",
-  #         "192.168.0.0/16"
-  #       ],
-  #       "PathBase": "/"
-  #     }
-  #   }
-
 # Name of secrets and configmaps to mount inside /app/config
 # Not used if sidecars.configAutoReload is enabled
 config:
-  # secrets: []
+  # Inline configuration for ASF.
+  # If sidecars.configAutoReload is not enabled, will be mounted as read-only secret directly inside ASF container.
+  # Otherwise, will be captured by configAutoReload sidecar and used to trigger ASF Auto-Reload feature
+  # YAML here, will be converted to JSON automatically
+  asfConfigs:
+    # IPC.config: |
+    #   {
+    #     "Kestrel": {
+    #       "Endpoints": {
+    #         "HTTP": {
+    #           "Url": "http://*:1242"
+    #         }
+    #       },
+    #       "KnownNetworks": [
+    #         "10.0.0.0/8",
+    #         "172.16.0.0/12",
+    #         "192.168.0.0/16"
+    #       ],
+    #       "PathBase": "/"
+    #     }
+    #   }
+  secrets: []
   configmaps: []
-  secrets:
-  - asf
 
 sidecars:
   configAutoReload:
@@ -50,6 +47,9 @@ sidecars:
     enabled: true
     image: kiwigrid/k8s-sidecar:1.19.5
     imagePullPolicy: IfNotPresent
+    # If configAutoReload.enabled, ASF.json will be populated after ASF starts and therefore, ASF will not pick up main config
+    # If this value is set, simple init-continer will run before ASF starts to copy ASF.json value to /app/config
+    ASFJsonSecretRef: asf-json
     resources: {}
       #   limits:
       #     cpu: 100m
