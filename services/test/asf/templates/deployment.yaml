@@ -49,17 +49,17 @@ spec:
           value: "/etc/asf"
         - name: NAMESPACE
           value: '{{ .Values.sidecars.configAutoReload.searchNamespace | default .Release.Namespace }}'
-        {{- if .Values.controller.sidecars.configAutoReload.env }}
-        {{- (tpl (toYaml .Values.controller.sidecars.configAutoReload.env) .) | nindent 8 }}
+        {{- if .Values.sidecars.configAutoReload.env }}
+        {{- (tpl (toYaml .Values.sidecars.configAutoReload.env) .) | nindent 8 }}
         {{- end }}
         resources:
-        {{- toYaml .Values.controller.sidecars.configAutoReload.resources | nindent 10 }}
+        {{- toYaml .Values.sidecars.configAutoReload.resources | nindent 10 }}
         volumeMounts:
         - name: config-volume
           mountPath: "/etc/asf"
       {{- end }}
-      {{- if .Values.controller.sidecars.other}}
-      {{ tpl (toYaml .Values.controller.sidecars.other | indent 6) .}}
+      {{- if .Values.sidecars.other}}
+      {{ tpl (toYaml .Values.sidecars.other | indent 6) .}}
       {{- end }}
       - name: main
         securityContext:

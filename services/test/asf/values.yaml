@@ -53,6 +53,7 @@ sidecars:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false
     envFrom: []
+    env: []
 
   # Allows you to inject additional/other sidecars
   other: []
