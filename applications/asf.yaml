@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: asf
+  namespace: argocd
+  labels:
+    name: asf
+spec:
+  project: infra
+
+  source:
+    repoURL: https://truelecter.github.io/charts/
+    chart: archi-steam-farm
+    targetRevision: 1.0.0
+
+    helm:
+      values: |
+        fullnameOverride: asf
+        sidecars:
+          configAutoReload:
+            ASFJsonSecretRef: asf-json
+        ingress:
+          enabled: true
+          className: nginx
+          hosts:
+          - host: asf.tenma.moe
+            paths:
+            - path: /
+              pathType: Prefix
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: asf
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - Validate=false
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  revisionHistoryLimit: 5
