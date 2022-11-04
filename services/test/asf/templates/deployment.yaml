@@ -111,9 +111,6 @@ spec:
           mountPath: "/app/config"
       volumes:
       {{- if .Values.sidecars.configAutoReload.enabled }}
-      - name: config-volume
-        emptyDir: {}
-      {{- else }}
       {{- if .Values.sidecars.configAutoReload.ASFJsonSecretRef }}
       - name: asf-json
         projected:
@@ -121,6 +118,9 @@ spec:
           - secret:
               name: {{ .Values.sidecars.configAutoReload.ASFJsonSecretRef | quote }}
       {{- end }}
+      - name: config-volume
+        emptyDir: {}
+      {{- else }}
       - name: config-volume
         projected:
           sources:
