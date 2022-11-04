@@ -1,0 +1,62 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: test
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/truelecter/k8s-infra.git
+      revision: HEAD
+      directories:
+      - path: services/test/*
+  template:
+    metadata:
+      name: 'test-{{ path.basename }}'
+      labels:
+        name: '{{ path.basename }}'
+        project: 'test'
+    spec:
+      project: 'test'
+      source:
+        repoURL: https://github.com/truelecter/k8s-infra.git
+        targetRevision: HEAD
+        path: '{{ path }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ path.basename }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - Validate=false
+        - CreateNamespace=true
+        - PrunePropagationPolicy=foreground
+        - PruneLast=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
+      revisionHistoryLimit: 5
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: test
+  namespace: argocd
+spec:
+  description: Test things
+  sourceRepos:
+  - '*'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - namespace: '*'
+    server: https://kubernetes.default.svc
