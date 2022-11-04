@@ -5,8 +5,9 @@ image:
   tag: ""
 
 envFrom: []
-env: 
-  ASF_ARGS: "--no-config-migrate"
+env:
+- name: ASF_ARGS
+  value: "--no-config-migrate"
 
 imagePullSecrets: []
 nameOverride: ""

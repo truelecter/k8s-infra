@@ -72,8 +72,8 @@ spec:
         envFrom:
         {{- (tpl (toYaml .Values.envFrom) .) | nindent 8 }}
         {{- end }}
-        env:
         {{- if .Values.env }}
+        env:
         {{- (tpl (toYaml .Values.env) .) | nindent 8 }}
         {{- end }}
         ports:
