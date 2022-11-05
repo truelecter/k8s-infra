@@ -208,7 +208,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: asf
+    namespace: pandora
 
   syncPolicy:
     automated:
