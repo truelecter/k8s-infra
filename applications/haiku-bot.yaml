@@ -18,6 +18,7 @@ spec:
         image:
           repository: ghcr.io/truelecter/tg-haiku-bot
           tag: latest
+          pullPolicy: Always
         envFrom:
         - secretRef:
             name: tg-haiku-bot-creds
