@@ -17,3 +17,22 @@ spec:
   destinations:
   - namespace: '*'
     server: https://kubernetes.default.svc
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: bots
+  namespace: argocd
+spec:
+  description: Bots
+  sourceRepos:
+  - '*'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - namespace: '*'
+    server: https://kubernetes.default.svc

@@ -1,36 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: asf
+  name: haiku-bot
   namespace: argocd
   labels:
-    name: asf
+    name: haiku-bot
 spec:
   project: bots
 
   source:
     repoURL: https://truelecter.github.io/charts/
-    chart: archi-steam-farm
-    targetRevision: 1.0.0
+    chart: simple-bot
+    targetRevision: 0.1.0
 
     helm:
       values: |
-        fullnameOverride: asf
-        sidecars:
-          configAutoReload:
-            ASFJsonSecretRef: asf-json
-        ingress:
-          enabled: true
-          className: nginx
-          hosts:
-          - host: asf.tenma.moe
-            paths:
-            - path: /
-              pathType: Prefix
+        image:
+          repository: ghcr.io/truelecter/tg-haiku-bot
+          tag: latest
+        envFrom:
+        - secretRef:
+            name: tg-haiku-bot-creds
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: asf
+    namespace: haiku-bot
 
   syncPolicy:
     automated:
