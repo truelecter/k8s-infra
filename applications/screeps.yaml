@@ -54,7 +54,7 @@ spec:
           enabled: true
           className: nginx
           hosts:
-          - host: screeps.fenrir.moe
+          - host: screeps.tenma.moe
             paths:
             - path: /
               pathType: Prefix
