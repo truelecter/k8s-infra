@@ -36,3 +36,22 @@ spec:
   destinations:
   - namespace: '*'
     server: https://kubernetes.default.svc
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: games
+  namespace: argocd
+spec:
+  description: Game servers
+  sourceRepos:
+  - '*'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - namespace: '*'
+    server: https://kubernetes.default.svc
