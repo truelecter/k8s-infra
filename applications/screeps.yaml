@@ -27,7 +27,7 @@ spec:
           - screepsmod-history
           - screepsmod-market
           bots:
-            simplebot: "screepsbot-zeswarm"
+            # simplebot: "screepsbot-zeswarm"
           backup:
             dirs:
             - tests
