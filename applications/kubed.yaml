@@ -6,7 +6,7 @@ metadata:
   labels:
     name: kubed
 spec:
-  project: kubed
+  project: infra
 
   source:
     repoURL: https://charts.appscode.com/stable/
@@ -15,7 +15,6 @@ spec:
 
     helm:
       values: |
-        installCRDs: true
 
   destination:
     server: https://kubernetes.default.svc
