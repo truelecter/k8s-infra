@@ -23,9 +23,6 @@ spec:
           - screepsmod-mongo
           - screepsmod-auth
           - screepsmod-admin-utils
-          - screepsmod-map-tool
-          - screepsmod-history
-          - screepsmod-market
           bots:
             # simplebot: "screepsbot-zeswarm"
           backup:
