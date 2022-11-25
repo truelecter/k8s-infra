@@ -15,6 +15,7 @@ spec:
 
     helm:
       values: |
+        policy: sync
         cloudflare:
           proxied: true
           secretName: cloudflare
