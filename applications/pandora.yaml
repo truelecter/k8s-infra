@@ -180,7 +180,10 @@ spec:
             }
           ]
 
-        envSecrets: 
+        env:
+          NODE_ENV: production
+
+        envSecrets:
         - pandora-envs
 
         ingress:
