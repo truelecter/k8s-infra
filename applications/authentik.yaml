@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://charts.goauthentik.io
     chart: authentik
-    targetRevision: 2022.10.0
+    targetRevision: 2023.5.1
 
     helm:
       values: |
@@ -33,7 +33,7 @@ spec:
             paths:
             - path: "/"
               pathType: Prefix
-        
+
         envFrom:
         - secretRef:
             name: authentik
