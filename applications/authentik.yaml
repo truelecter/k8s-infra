@@ -16,7 +16,7 @@ spec:
     helm:
       values: |
         image:
-          tag: 2022.10.1
+          tag: 2023.5.1
         authentik:
           postgresql:
             name: ~
