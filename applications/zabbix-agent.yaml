@@ -14,7 +14,11 @@ spec:
     path: "."
 
     helm:
-      values: ""
+      values: |
+        zabbixAgent:
+          enabled: false
+        zabbixProxy:
+          enabled: false
 
   destination:
     server: https://kubernetes.default.svc
