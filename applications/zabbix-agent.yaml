@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zabbix-agent
+  namespace: argocd
+  labels:
+    name: zabbix-agent
+spec:
+  project: infra
+
+  source:
+    repoURL: https://zabbix-community.github.io/helm-zabbix
+    chart: zabbix
+    targetRevision: 3.4.4
+
+    helm:
+      values: |
+        zabbixserver:
+          enabled: false
+        postgresql:
+          enabled: false
+        zabbixproxy:
+          enabled: false
+        zabbixweb:
+          enabled: false
+        zabbixwebservice:
+          enabled: false
+
+        zabbixagent:
+          enabled: true
+          ZBX_SERVER_HOST: 192.168.20.27
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: zabbix
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - Validate=false
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  revisionHistoryLimit: 5
