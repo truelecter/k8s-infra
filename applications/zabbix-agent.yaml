@@ -11,6 +11,7 @@ spec:
   source:
     repoURL: https://git.zabbix.com/scm/zt/kubernetes-helm.git
     targetRevision: HEAD
+    path: "."
 
     helm:
       values: ""
