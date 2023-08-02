@@ -9,26 +9,11 @@ spec:
   project: infra
 
   source:
-    repoURL: https://zabbix-community.github.io/helm-zabbix
-    chart: zabbix
-    targetRevision: 3.4.4
+    repoURL: https://git.zabbix.com/scm/zt/kubernetes-helm.git
+    targetRevision: HEAD
 
     helm:
-      values: |
-        zabbixserver:
-          enabled: false
-        postgresql:
-          enabled: false
-        zabbixproxy:
-          enabled: false
-        zabbixweb:
-          enabled: false
-        zabbixwebservice:
-          enabled: false
-
-        zabbixagent:
-          enabled: true
-          ZBX_SERVER_HOST: 192.168.20.27
+      values: ""
 
   destination:
     server: https://kubernetes.default.svc
