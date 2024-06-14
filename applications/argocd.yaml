@@ -15,11 +15,13 @@ spec:
 
     helm:
       values: |
+        global:
+          domain: "https://argocd.tenma.moe"
+
         configs:
           secret:
             createSecret: false
           cm:
-            url: "https://argocd.tenma.moe"
             dex.config: |
               connectors:
               - name: authentik
@@ -45,8 +47,6 @@ spec:
             annotations:
               nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
               external-dns.alpha.kubernetes.io/ttl: "120"
-            hosts:
-            - argocd.tenma.moe
 
   destination:
     server: https://kubernetes.default.svc
